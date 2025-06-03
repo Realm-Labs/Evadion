@@ -182,7 +182,7 @@
     <script src="/active/uv/uv.config.js"></script>
     <script src="/assets/js/register.js"></script>
     <script>
-        // Create stars background
+ 
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -208,7 +208,7 @@
             }
         }
 
-        // Parallax effect for mouse movement
+ 
         function parallaxEffect(e) {
             const xPos = (window.innerWidth / 2 - e.clientX) / 50;
             const yPos = (window.innerHeight / 2 - e.clientY) / 50;
@@ -220,7 +220,7 @@
                 `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
         }
 
-        // Generate proper search URL
+ 
         function generateSearchUrl(query) {
             try {
                 const url = new URL(query);
@@ -234,7 +234,7 @@
             return `https://duckduckgo.com/?q=${encodeURIComponent(query)}`;
         }
 
-        // Initialize when DOM is loaded
+ 
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
             
