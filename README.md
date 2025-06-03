@@ -5,7 +5,8 @@
 ## Contributers
 
 - [@mkykg](https://www.github.com/mkykg) • The developer of Evadion
-- [@xXmizzeryXx](https://www.github.com/xXmizzeryXx) • Added Games
+- [@xXmizzeryXx](https://www.github.com/xXmizzeryXx) • Added Games and search engine
+- [@flixifytvisbackformoregithub](https://www.github.com/flixifytvisbackformoregithub) • Added UV
 
 
 
