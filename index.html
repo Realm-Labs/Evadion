@@ -679,12 +679,14 @@
         const errorMessage = document.getElementById('errorMessage');
         const mainContent = document.getElementById('mainContent');
         const starsContainer = document.getElementById('stars');
+        const txtRotateElement = document.querySelector('.txt-rotate');
         
         const CORRECT_PASSWORD = "Evadion!";
         const INACTIVITY_TIMEOUT = 2 * 60 * 1000; 
         
         let inactivityTimer;
         let isAuthenticated = false;
+        let txtRotateInitialized = false;
         
 
         showPasswordModal();
@@ -718,10 +720,18 @@
 
             document.querySelector('.gradient-bg').style.opacity = '1';
             document.querySelector('.depth-layer').style.opacity = '1';
-            starsContainer.style.opacity = '1';
             
-
-            activateStars();
+ 
+            if (!txtRotateInitialized) {
+                initializeTextRotation();
+                txtRotateInitialized = true;
+            }
+            
+ 
+            setTimeout(() => {
+                starsContainer.style.opacity = '1';
+                activateStars();
+            }, 2000);
             
 
             document.getElementById('mainHeading').style.opacity = '1';
@@ -730,6 +740,17 @@
             document.getElementById('mainSubtitle').style.transform = 'translateY(0)';
             document.getElementById('mainButtons').style.opacity = '1';
             document.getElementById('mainButtons').style.transform = 'translateY(0)';
+        }
+        
+        function initializeTextRotation() {
+            const elements = document.getElementsByClassName('txt-rotate');
+            for (let i = 0; i < elements.length; i++) {
+                const toRotate = elements[i].getAttribute('data-rotate');
+                const period = elements[i].getAttribute('data-period');
+                if (toRotate) {
+                    new TxtRotate(elements[i], JSON.parse(toRotate), period);
+                }
+            }
         }
         
         function checkPassword() {
@@ -857,17 +878,9 @@
         };
 
         window.onload = function() {
-            var elements = document.getElementsByClassName('txt-rotate');
-            for (var i = 0; i < elements.length; i++) {
-                var toRotate = elements[i].getAttribute('data-rotate');
-                var period = elements[i].getAttribute('data-period');
-                if (toRotate) {
-                    new TxtRotate(elements[i], JSON.parse(toRotate), period);
-                }
-            }
-
             updateMetaTags();
             
+ 
             document.addEventListener('mousemove', parallaxEffect);
             window.addEventListener('scroll', navbarScroll);
             window.addEventListener('deviceorientation', handleDeviceOrientation);
