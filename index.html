@@ -99,7 +99,7 @@
             background-color: rgba(10, 10, 20, 0.8);
             color: white;
             font-size: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             outline: none;
             transition: all 0.3s ease;
         }
@@ -683,14 +683,31 @@
         
         const CORRECT_PASSWORD = "Evadion!";
         const INACTIVITY_TIMEOUT = 2 * 60 * 1000; 
+        const STORAGE_KEY = "evadion_auth";
         
         let inactivityTimer;
         let isAuthenticated = false;
         let txtRotateInitialized = false;
         
-
-        showPasswordModal();
-        createStars(false); 
+        
+        function checkSavedPassword() {
+            const savedPassword = localStorage.getItem(STORAGE_KEY);
+            if (savedPassword && savedPassword === CORRECT_PASSWORD) {
+                passwordInput.value = savedPassword;
+                hidePasswordModal();
+                return true;
+            }
+            return false;
+        }
+        
+      
+        function init() {
+            const hasSavedPassword = checkSavedPassword();
+            if (!hasSavedPassword) {
+                showPasswordModal();
+            }
+            createStars(false); 
+        }
         
         function showPasswordModal() {
             passwordModal.style.display = 'flex';
@@ -717,23 +734,22 @@
             isAuthenticated = true;
             resetInactivityTimer();
             
-
+          
+            localStorage.setItem(STORAGE_KEY, CORRECT_PASSWORD);
+            
             document.querySelector('.gradient-bg').style.opacity = '1';
             document.querySelector('.depth-layer').style.opacity = '1';
             
- 
             if (!txtRotateInitialized) {
                 initializeTextRotation();
                 txtRotateInitialized = true;
             }
             
- 
             setTimeout(() => {
                 starsContainer.style.opacity = '1';
                 activateStars();
             }, 2000);
             
-
             document.getElementById('mainHeading').style.opacity = '1';
             document.getElementById('mainHeading').style.transform = 'translateY(0)';
             document.getElementById('mainSubtitle').style.opacity = '1';
@@ -758,7 +774,6 @@
                 hidePasswordModal();
                 modalContent.classList.remove('error');
                 errorMessage.style.display = 'none';
-                passwordInput.value = '';
             } else {
                 modalContent.classList.add('error');
                 errorMessage.style.display = 'block';
@@ -775,6 +790,8 @@
             if (isAuthenticated) {
                 inactivityTimer = setTimeout(() => {
                     showPasswordModal();
+                    
+                    localStorage.removeItem(STORAGE_KEY);
                 }, INACTIVITY_TIMEOUT);
             }
         }
@@ -814,6 +831,7 @@
             });
         }
         
+    
         submitPassword.addEventListener('click', checkPassword);
         passwordInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -877,10 +895,11 @@
             }, delta);
         };
 
+       
         window.onload = function() {
+            init();
             updateMetaTags();
             
- 
             document.addEventListener('mousemove', parallaxEffect);
             window.addEventListener('scroll', navbarScroll);
             window.addEventListener('deviceorientation', handleDeviceOrientation);
