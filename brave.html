@@ -15,7 +15,6 @@
     <meta name="orbit:card" content="/logo/evadion.jpeg">
     <meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
 
-    
     <link rel="icon" href="/logo/evadion.jpeg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -433,7 +432,6 @@
     <script src="/active/uv/uv.config.js"></script>
     <script src="/assets/js/register.js"></script>
     <script>
-
         function createStars() {
             const starsContainer = document.getElementById('stars');
             const starCount = 100;
@@ -459,7 +457,6 @@
             }
         }
 
- 
         function parallaxEffect(e) {
             const xPos = (window.innerWidth / 2 - e.clientX) / 50;
             const yPos = (window.innerHeight / 2 - e.clientY) / 50;
@@ -471,8 +468,8 @@
                 `translateZ(-50px) rotateX(${yPos * 1.5}deg) rotateY(${-xPos * 1.5}deg)`;
         }
 
- 
-        function generateSearchUrl(query) {
+        function generateBraveSearchUrl(query) {
+
             try {
                 const url = new URL(query);
                 return url.toString();
@@ -482,9 +479,10 @@
                     if (url.hostname.includes('.')) return url.toString();
                 } catch {}
             }
-            return `https://search.brave.com/?q=${encodeURIComponent(query)}`;
-        }
+            
 
+            return `https://search.brave.com/search?q=${encodeURIComponent(query)}&source=web`;
+        }
 
         function navbarScroll() {
             const navbar = document.getElementById('navbar');
@@ -494,7 +492,6 @@
                 navbar.classList.remove('nav-scrolled');
             }
         }
-
 
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
@@ -512,13 +509,20 @@
                     const query = this.value.trim();
                     if (!query) return;
 
-                    const rawUrl = generateSearchUrl(query);
-                    const encoded = __uv$config.encodeUrl(rawUrl);
-                    const proxyUrl = __uv$config.prefix + encoded;
+                    const rawUrl = generateBraveSearchUrl(query);
                     
-                    window.location.href = proxyUrl;
+
+                    if (typeof __uv$config !== 'undefined') {
+                        const encoded = __uv$config.encodeUrl(rawUrl);
+                        const proxyUrl = __uv$config.prefix + encoded;
+                        window.location.href = proxyUrl;
+                    } else {
+                        console.error('UV config not loaded. Falling back to direct Brave search.');
+                        window.location.href = rawUrl;
+                    }
                 }
             });
+
 
             window.addEventListener('deviceorientation', function(e) {
                 if (e.beta && e.gamma) {
