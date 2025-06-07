@@ -122,60 +122,65 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
             margin-top: 2rem;
         }
 
         .engine-option {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 1.5rem;
-            width: 250px;
+            border-radius: 12px;
+            padding: 1rem;
+            width: 140px;
             cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid rgba(90, 68, 255, 0.3);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .engine-option:hover {
             transform: translateY(-5px);
             border-color: #5a44ff;
-            box-shadow: 0 10px 30px rgba(90, 68, 255, 0.3);
-        }
-
-        .engine-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #5a44ff;
+            box-shadow: 0 10px 25px rgba(90, 68, 255, 0.3);
         }
 
         .engine-name {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
             font-weight: 600;
-        }
-
-        .engine-description {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
+            color: #fff;
         }
 
         .select-button {
             background: linear-gradient(135deg, #5a44ff, #7a64ff);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 30px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+            margin: 0 auto;
         }
 
         .select-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
+        }
+
+        .tilted-rocket {
+            transform: rotate(-45deg);
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .select-button:hover .tilted-rocket {
+            transform: rotate(-45deg) translateX(3px);
         }
 
         nav {
@@ -191,12 +196,6 @@
             background-color: rgba(15, 15, 40, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(90, 68, 255, 0.2);
-        }
-
-        .nav-scrolled {
-            padding: 1rem 8%;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            background-color: rgba(15, 15, 40, 0.95);
         }
 
         .logo {
@@ -448,7 +447,7 @@
                 <span class="tooltip">GitHub</span>
             </a>
             <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
-                <i class="bi bi-discord"></i>
+                <i class="bi bi-rocket"></i>
                 <span class="tooltip">Discord</span>
             </a>
             <a href="mailto:contact.mkykg@gmail.com" class="cta-button" id="getStartedBtn">
@@ -466,15 +465,23 @@
     <div class="selection-container">
         <h1 class="selection-title">Choose Your Search Engine</h1>
         <div class="engine-options">
-            <div class="engine-option" onclick="selectEngine('google')">
-                <i class="bi bi-google engine-icon"></i>
+            <div class="engine-option">
                 <h3 class="engine-name">Google</h3>
-                <button class="select-button">Launch</button>
+                <button class="select-button" onclick="window.location.href='/google'">
+                    <span class="tilted-rocket"><i class="bi bi-rocket"></i></span> Launch
+                </button>
             </div>
-            <div class="engine-option" onclick="selectEngine('duckduckgo')">
-                <i class="bi bi-search engine-icon"></i>
+            <div class="engine-option">
                 <h3 class="engine-name">DuckDuckGo</h3>
-                <button class="select-button">Launch</button>
+                <button class="select-button" onclick="window.location.href='/duckduckgo'">
+                    <span class="tilted-rocket"><i class="bi bi-rocket"></i></span> Launch
+                </button>
+            </div>
+            <div class="engine-option">
+                <h3 class="engine-name">Brave</h3>
+                <button class="select-button" onclick="window.location.href='/brave'">
+                    <span class="tilted-rocket"><i class="bi bi-rocket"></i></span> Launch
+                </button>
             </div>
         </div>
     </div>
@@ -525,14 +532,6 @@
             }
         }
 
-        function selectEngine(engine) {
-
-            localStorage.setItem('selectedSearchEngine', engine);
-            
-
-            window.location.href = `/${engine}`;
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             createStars();
             
@@ -541,13 +540,6 @@
             });
 
             window.addEventListener('scroll', navbarScroll);
-
-
-            const selectedEngine = localStorage.getItem('selectedSearchEngine');
-            if (selectedEngine) {
-
-                window.location.href = `/${selectedEngine}`;
-            }
         });
     </script>
 </body>
