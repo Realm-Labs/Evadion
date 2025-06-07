@@ -103,7 +103,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 90%;
-            max-width: 600px;
+            max-width: 800px;
             z-index: 10;
             text-align: center;
         }
@@ -120,7 +120,6 @@
 
         .engine-options {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 1.5rem;
             margin-top: 2rem;
@@ -147,7 +146,18 @@
         .engine-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: #5a44ff;
+        }
+
+        .google-icon {
+            color: #4285F4;
+        }
+
+        .duckduckgo-icon {
+            color: #DE5833;
+        }
+
+        .brave-icon {
+            color: #FB542B;
         }
 
         .engine-name {
@@ -467,17 +477,17 @@
         <h1 class="selection-title">Choose Your Search Engine</h1>
         <div class="engine-options">
             <a href="/google" class="engine-option">
-                <i class="bi bi-google engine-icon"></i>
+                <i class="bi bi-google engine-icon google-icon"></i>
                 <h3 class="engine-name">Google</h3>
                 <button class="select-button">Launch</button>
             </a>
             <a href="/duckduckgo" class="engine-option">
-                <i class="bi bi-duck engine-icon"></i>
+                <i class="bi bi-search engine-icon duckduckgo-icon"></i>
                 <h3 class="engine-name">DuckDuckGo</h3>
                 <button class="select-button">Launch</button>
             </a>
             <a href="/brave" class="engine-option">
-                <i class="bi bi-brave engine-icon"></i>
+                <i class="bi bi-brave engine-icon brave-icon"></i>
                 <h3 class="engine-name">Brave</h3>
                 <button class="select-button">Launch</button>
             </a>
