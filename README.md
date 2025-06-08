@@ -57,6 +57,5 @@
 
 Legacy
 [Evadion](https://evadion.pages.dev) • [Tide](https://tide-tau.vercel.app) • [Acorn](https://the-acornz.github.io/) • Others coming soon
-🔗 JOIN OUR SERVER
 
 > * 🔗  [JOIN OUR SERVER](https://discord.com/invite/BJwdeHAsuR)
