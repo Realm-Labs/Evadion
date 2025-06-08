@@ -59,4 +59,7 @@ Legacy
 [Evadion](https://evadion.pages.dev) • [Tide](https://tide-tau.vercel.app) • [Acorn](https://the-acornz.github.io/) • Others coming soon
 
 > * 🔗  [JOIN OUR SERVER](https://discord.com/invite/BJwdeHAsuR)
+
+ 
+ 
  https://cdn.discordapp.com/attachments/1378473959120437288/1380629269734096998/elusion.gif?ex=684492b4&is=68434134&hm=5fdf22b9d06b0189e7bbece84c26243ae95b4ac0725893cf4012e222bd772433& 
