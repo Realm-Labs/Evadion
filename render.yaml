@@ -1,0 +1,10 @@
+services:
+  - type: web_static
+    name: evadion
+    routes:
+      - route: /
+    buildCommand: npm install
+    staticPublishPath: .
+    envVars:
+      - key: NODE_VERSION
+        value: "14"
