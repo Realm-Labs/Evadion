@@ -14,6 +14,10 @@
 
 - [@vplaza](https://vplaza.org/) • Making our majory of the home page
 - [@glanticnetwork](https://galacticnetwork.org/) • Providing us a server
+  
+> [!IMPORTANT]
+> If you fork this repo please consider giving us a star. Thank you!
+
 ## 🔗 Links
 
 - [Evadion](https://evadion.github.io)
