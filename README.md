@@ -62,14 +62,22 @@
 Legacy
 [Evadion](https://evadion.pages.dev) • [Tide](https://tide-tau.vercel.app) • [Acorn](https://the-acornz.github.io/) • Others coming soon
 
-> * 🔗  [JOIN OUR SERVER](https://discord.com/invite/BJwdeHAsuR)
+[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/XvdfwjjEyG)
+> If you're having trouble or you just want to connect with people, feel free to contact us on our discord
 
-## 💻 Local Deployment
+  
+## Support
+If you come across any issues, submit an issue on GitHub, and we'll address it as soon ass possible. 
+## 📜 License
 
-To run Evadion locally, you will need:
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-*   Git
-*   Node.js (with npm, Yarn, or pnpm)
+
+## 💻 Server/local Deployment
+
+> [!WARNING]
+> You need to have have git, and npm/pnpm/yarn to run this project locally
+> ,you also need to install globally the https server to run locally
 
 **Instructions:**
 
@@ -102,7 +110,7 @@ To run Evadion locally, you will need:
         pnpm install -g http-server
         ```
 
-3.  **Start the development server:**
+3.  **Start the server:**
 
     Choose **one** of the following, depending on your package manager:
 
@@ -124,7 +132,19 @@ To run Evadion locally, you will need:
         pnpm start
         ```
 
-    Evadion should now be listening in `http://localhost:3069`.
+    Evadion should now be listening in `http://localhost:3069`
+    ## Updating
+
+```bash
+cd evadion.github.io
+git pull --force --allow-unrelated-histories # This may overwrite your local changes 
+```
+[![Deploy to Vercel](https://binbashbanana.github.io/deploy-buttons/buttons/remade/vercel.svg)](https://vercel.com/new/clone?repository-url=https://github.com/{user}/{evadion.github.io})
+[![Deploy to Render](https://binbashbanana.github.io/deploy-buttons/buttons/remade/render.svg)](https://render.com/deploy?repo=https://github.com/gustambolopez/evadion.github.io)
+
+## Support
+If you come across any issues, submit an issue on GitHub, and we'll address it as soon ass possible. 
+
 
 ## 📜 License
 
