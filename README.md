@@ -58,7 +58,7 @@
 > * 🚀  Our sites: Tide • Evadion • Acorn
 > * 🪩  Any proxy owners can join us
 
-Legacy
+# **Legacy**
 [Evadion](https://evadion.pages.dev) • [Tide](https://tide-tau.vercel.app) • [Acorn](https://the-acornz.github.io/) • Others coming soon
 
 [![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/XvdfwjjEyG)
