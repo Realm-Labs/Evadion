@@ -25,9 +25,7 @@
 - [Evadion](https://evadion.pages.dev)
 - [Evadion](https://evadion.on-to.space)
 - [Evadion](https://evadion.netlify.app)
-
-
-![Logo](https://evadion.github.io/logo/evadion.jpeg)
+- [Evadion](https://evadion.org)
 
 
 ## 🚀 About Us
