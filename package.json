@@ -1,12 +1,16 @@
 {
-  "name": "Evadion",
-  "version": "0.1.5",
+  "name": "evadion-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot for managing domains.",
+  "main": "index.js",
   "scripts": {
-    "start": "http-server -p 3069 -c-1"
+    "start": "node index.js"
   },
-  "author": "mkykg, acorn, santiago16_",
-  "license": "MIT",
-  "engines": {
-    "node": ">=14"
+  "keywords": [],
+  "author": "MK",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
   }
 }
