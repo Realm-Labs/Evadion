@@ -378,6 +378,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            height: 100%;
+            min-height: 180px;
         }
 
         .game-card:hover {
@@ -387,13 +389,13 @@
         }
 
         .game-icon {
-            font-size: 2.5rem;
+            font-size: 3rem; 
             margin-bottom: 1rem;
             color: #5a44ff;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 2.5rem;
+            height: 3rem;
         }
 
         .game-icon-img {
@@ -458,6 +460,10 @@
             .games-container {
                 padding-top: 140px;
             }
+            
+            .game-icon {
+                font-size: 2.5rem; 
+            }
         }
     </style>
 </head>
@@ -516,12 +522,12 @@
             
             <div class="games-grid">
                 <div class="game-card request-card" onclick="window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScAFVaUpkenEShNz-LjO3EhJoB9rXjHfAD99GEeob3M3f41SQ/viewform?usp=sharing&ouid=118209237225802351429'" target="_blank">
-                    <i class="bi bi-controller game-icon"></i>
+                    <i class="bi bi-plus-circle game-icon"></i>
                     <div class="game-name">Request Games</div>
                 </div>
                 
                 <div class="game-card" onclick="window.location.href='/gms/geodash'">
-                    <i class="bi bi-controller game-icon">
+                    <i class="bi bi-controller game-icon"></i>
                     <div class="game-name">Geometry Dash</div>
                 </div>
                 
@@ -534,7 +540,8 @@
                     <i class="bi bi-controller game-icon"></i>
                     <div class="game-name">Among Us</div>
                 </div>
-                    <div class="game-card" onclick="window.location.href='/gms/TABS.html'">
+                
+                <div class="game-card" onclick="window.location.href='/gms/TABS.html'">
                     <i class="bi bi-controller game-icon"></i>
                     <div class="game-name">TABS for Evadion</div>
                 </div>
@@ -608,7 +615,7 @@
                 gameCards.forEach(card => {
                     const gameName = card.querySelector('.game-name').textContent.toLowerCase();
                     if (gameName.includes(searchTerm)) {
-                        card.style.display = 'block';
+                        card.style.display = 'flex';
                     } else {
                         card.style.display = 'none';
                     }
