@@ -1,7 +1,7 @@
 {
   "name": "Evadion",
   "version": "1.0.0",
-  "description": "A Discord bot for managing domains.",
+  "description": "Come and make links in the Elusion server [here](https://dsc.gg/runelusion).",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
