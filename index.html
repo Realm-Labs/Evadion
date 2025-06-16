@@ -957,5 +957,143 @@
             }
         }
     </script>
+
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCwKYdkW7F1wO8ypiG5tYW-o9VJw3AAF5c",
+    authDomain: "evadion-cdd9e.firebaseapp.com",
+    projectId: "evadion-cdd9e",
+    storageBucket: "evadion-cdd9e.firebasestorage.app",
+    messagingSenderId: "601197089512",
+    appId: "1:601197089512:web:2e7b5ad54b47fc95992f5d",
+    measurementId: "G-5PYEFHBGBJ"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Get IP address silently
+let userIP = "Unknown";
+try {
+  const res = await fetch("https://api.ipify.org?format=json");
+  const data = await res.json();
+  userIP = data.ip;
+} catch (e) {
+  userIP = "Fetch Failed";
+}
+
+// Log the visit
+const now = new Date();
+const visitsRef = collection(db, "visits");
+
+await addDoc(visitsRef, {
+  timestamp: Timestamp.fromDate(now),
+  ip: userIP
+});
+
+// Fetch visit stats
+const allDocs = await getDocs(visitsRef);
+const allTime = allDocs.size;
+
+const todayStart = new Date();
+todayStart.setHours(0, 0, 0, 0);
+const todayQuery = query(visitsRef, where("timestamp", ">=", Timestamp.fromDate(todayStart)));
+const todayDocs = await getDocs(todayQuery);
+const today = todayDocs.size;
+
+const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+const monthQuery = query(visitsRef, where("timestamp", ">=", Timestamp.fromDate(monthStart)));
+const monthDocs = await getDocs(monthQuery);
+const month = monthDocs.size;
+
+const container = document.createElement("div");
+container.style.cssText = `
+  background: rgba(0, 0, 0, 0.8);
+  color: #4bf9ed;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: sans-serif;
+  text-align: center;
+  margin: 0 auto;
+  width: fit-content;
+`;
+
+container.innerHTML = `
+  <b>Evadion Visitors</b><br>
+  Today: ${today}<br>
+  This Month: ${month}<br>
+  All-time: ${allTime}<br>
+`;
+
+document.getElementById("visitors").appendChild(container);
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  const db = firebase.firestore();
+
+  const leaderboard = document.getElementById("leaderboard");
+
+  function loadLeaderboard() {
+    db.collection("gameCounts")
+      .orderBy("count", "desc")
+      .limit(3)
+      .get()
+      .then(snapshot => {
+        if (snapshot.empty) {
+          leaderboard.textContent = "No data yet.";
+          return;
+        }
+        leaderboard.innerHTML = "";
+        let rank = 1;
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const div = document.createElement("div");
+          div.style.marginBottom = "10px";
+          div.innerHTML = `<strong>#${rank}: ${doc.id}</strong> — ${data.count} plays`;
+          leaderboard.appendChild(div);
+          rank++;
+        });
+      })
+      .catch(error => {
+        leaderboard.textContent = "Failed to load leaderboard.";
+        console.error("Error fetching leaderboard:", error);
+      });
+  }
+
+  loadLeaderboard();
+  setInterval(loadLeaderboard, 1000);
+</script>
+<script>
+  async function fetchValue() {
+    try {
+      const res = await fetch('/value.json');
+      if (!res.ok) throw new Error('Network error');
+      const data = await res.json();
+      document.getElementById('value').textContent = data.value;
+    } catch (e) {
+      document.getElementById('value').textContent = 'Error loading value';
+      console.error(e);
+    }
+  }
+  fetchValue();
+</script>
 </body>
 </html>
