@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Evadion Visitor Logs</title>
+  <title>Vistors | Evadion</title>
   <style>
     * {
       margin: 0;
@@ -11,12 +11,17 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
+    html {
+      overflow-x: hidden;
+      height: 100%;
+    }
+
     body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
       background: #0a0a14;
-      position: fixed;
+      position: relative;
       perspective: 1000px;
       color: #fff;
     }
@@ -109,15 +114,19 @@
       50% { opacity: 1; transform: scale(1); }
     }
 
-    .content-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      padding: 20px;
+    .content-wrapper {
+      position: relative;
       z-index: 1;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .content-container {
+      width: 100%;
+      max-width: 1200px;
     }
 
     h1 {
@@ -135,11 +144,10 @@
     }
 
     .table-container {
-      max-height: calc(100vh - 150px);
-      overflow-y: auto;
       background-color: rgba(15, 15, 40, 0.7);
-      border-radius: 10px;
+      border-radius: 15px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
     }
 
     table {
@@ -195,27 +203,29 @@
   <div class="stars" id="stars"></div>
   <div class="vignette"></div>
 
-  <div class="content-container">
-    <h1>Evadion Visitor Logs</h1>
-    
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Timestamp</th>
-            <th>IP Address</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Country</th>
-            <th>Tag</th>
-          </tr>
-        </thead>
-        <tbody id="visitorTable">
-          <tr><td colspan="8" class="loading">Loading visitor data...</td></tr>
-        </tbody>
-      </table>
+  <div class="content-wrapper">
+    <div class="content-container">
+      <h1>Evadion Visitor Logs</h1>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>IP Address</th>
+              <th>Latitude</th>
+              <th>Longitude</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Country</th>
+              <th>Tag</th>
+            </tr>
+          </thead>
+          <tbody id="visitorTable">
+            <tr><td colspan="8" class="loading">Loading visitor data...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -238,8 +248,10 @@
     const visitsRef = collection(db, "visits");
     const visitorTable = document.getElementById("visitorTable");
 
+
+
     const ipTags = {
-      "108.234.214.140": "Owner",
+      "108.234.214.140": "IDFK",
     };
 
     const geoCache = {};
