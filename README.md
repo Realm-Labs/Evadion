@@ -20,34 +20,8 @@
 
 ## 🚀 About Us
 
-# **Welcome to Elusion** 
-✨ The only proxy you need!
-✨ Triple the power, triple the fun!
-## **🚀 What We Offer**
-
-> * 🎮 Games
-> * 🤖  AI tools - coming soon...
-> * 📲    Apps
-> * 💬 Helpful and engaging community
-> * 📺 Movies and TV - coming soon
-> *  🔍  Search engine - Private, fast, and secure
-> * 🎮 Games
-> * 🤖  AI
-> * 📲  Apps
-> * 🚀  Enhanced player options
-> * 💬  Helpful and engaging community
-> * 📺  Movies and TV
-> * 🔍 Search engine - Private, fast, and secure
-> * 🔐 Safe and secured 💯
-> * 🎉 Frequent giveaways
-> * 🪩  3 proxies --more coming soon--
-## **Why You Should Join**
-
-> * ✅ 100% Free access
-> * 💎 No Lag, No Ads
-> * 🚀  Our sites: Tide • Evadion • Acorn
-> * 🪩  Any proxy owners can join us
-
+# Elusion
+If you haven't already please join us, If the server gets more members Ill make the biggest updates ever
 # **Legacy**
 [Evadion](https://evadion.pages.dev) • [Tide](https://tide-tau.vercel.app) • [Acorn](https://the-acornz.github.io/) • Others coming soon
 
