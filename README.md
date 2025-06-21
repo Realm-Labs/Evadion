@@ -6,7 +6,6 @@
 
 - [@mkykg](https://www.github.com/mkykg) • The developer of Evadion
 - [@xXmizzeryXx](https://www.github.com/xXmizzeryXx) • Added Games and UV
-- [@santiago16](https://www.github.com/gustambolopez) • some tweaks and dev of the upcoming v2
 
 
 
@@ -18,15 +17,6 @@
   
 > [!IMPORTANT]
 > If you fork this repo please consider giving us a star. Thank you!
-
-## 🔗 Links
-
-- [Evadion](https://evadion.github.io)
-- [Evadion](https://evadion.pages.dev)
-- [Evadion](https://evadion.on-to.space)
-- [Evadion](https://evadion.netlify.app)
-- [Evadion](https://evadion.org)
-
 
 ## 🚀 About Us
 
