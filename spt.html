@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music | Evadion</title>
+    <meta property="og:title" content="Music | Evadion" />
+    <meta property="og:type" content="v0.1.3" />
+    <meta property="og:url" content="https://evadion.github.io/music" />
+    <meta property="og:image" content="https://evadion.github.io/logo/evadion.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:description" content="✨Evadion Music - Stream your favorite tracks" />
+    <meta name="theme-color" content="#5a44ff">
+    <meta name="orbit:card" content="/logo/evadion.jpeg">
+    <meta property="twitter:image" content="https://evadion.github.io/logo/evadion.jpeg">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html {
+            overflow: hidden;
+            height: 100%;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow-x: hidden;
+            background: #0a0a14;
+            position: fixed;
+            perspective: 1000px;
+            color: #fff;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(
+                circle at 50% 70%,
+                rgba(90, 68, 255, 0.6) 0%,
+                rgba(40, 30, 120, 0.3) 30%,
+                rgba(15, 15, 40, 0.1) 60%,
+                rgba(10, 10, 20, 0) 80%
+            );
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            animation: pulse 8s ease-in-out infinite;
+            z-index: -10;
+        }
+
+        .depth-layer {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 30% 40%, rgba(80, 60, 255, 0.05) 0%, transparent 30%),
+                radial-gradient(circle at 70% 60%, rgba(100, 80, 255, 0.08) 0%, transparent 40%);
+            filter: blur(40px);
+            opacity: 0;
+            animation: depthPulse 12s ease-in-out infinite;
+            z-index: -9;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 150px 60px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            z-index: -7;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -5;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+                filter: blur(30px) brightness(0.8);
+                transform: translateZ(-20px) scale(0.9);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(20px) brightness(1.2);
+                transform: translateZ(0) scale(1);
+            }
+        }
+
+        @keyframes depthPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateZ(-50px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateZ(30px);
+            }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 8%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            background-color: rgba(15, 15, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(90, 68, 255, 0.2);
+        }
+
+        .nav-scrolled {
+            padding: 1rem 8%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            background-color: rgba(15, 15, 40, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, #5a44ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: 40px;
+            margin-right: 0.75rem;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #5a44ff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #5a44ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #5a44ff, #7a64ff);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.6rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cta-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(3px);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.8s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(90, 68, 255, 0.3);
+        }
+
+        .cta-button:hover::before {
+            transform: scale(15);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(90, 68, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: #5a44ff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(90, 68, 255, 0.4);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(10, 10, 20, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(90, 68, 255, 0.3);
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            background: rgba(10, 10, 20, 0.9);
+            border-top: 1px solid rgba(90, 68, 255, 0.3);
+            border-left: 1px solid rgba(90, 68, 255, 0.3);
+        }
+
+        .has-tooltip {
+            position: relative;
+        }
+
+        .has-tooltip:hover .tooltip {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+            bottom: -45px;
+        }
+
+        /* Music Player Styles */
+        #music-container {
+            position: relative;
+            max-width: 800px;
+            margin: 100px auto 120px;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        #music-header {
+            display: flex;
+            align-items: center;
+            background: rgba(20, 20, 40, 0.9);
+            border: 1px solid rgba(90, 68, 255, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            border-radius: 30px;
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        #search-bar {
+            flex: 1;
+            background: rgba(40, 40, 60, 0.9);
+            border: 1px solid rgba(90, 68, 255, 0.3);
+            border-radius: 30px;
+            padding: 12px 15px;
+            margin: 0;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        #search-bar::placeholder {
+            color: rgba(200, 200, 200, 0.7);
+        }
+
+        #search-button, #toggle-video-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+            margin-left: 5px;
+            transition: all 0.3s;
+        }
+
+        #search-button:hover, #toggle-video-button:hover {
+            color: #5a44ff;
+            transform: scale(1.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .tab-button {
+            background-color: rgba(40, 40, 60, 0.9);
+            border: 1px solid rgba(90, 68, 255, 0.3);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .tab-button.active {
+            background-color: rgba(90, 68, 255, 0.7);
+            border-color: rgba(160, 160, 255, 0.4);
+        }
+
+        #search-results,
+        #liked-songs {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-bottom: 60px;
+        }
+
+        .search-result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: rgba(40, 40, 60, 0.8);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(90, 68, 255, 0.1);
+        }
+
+        .search-result-item:hover {
+            background-color: rgba(60, 60, 80, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-color: rgba(90, 68, 255, 0.3);
+        }
+
+        .song-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .song-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .song-artist {
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .like-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .like-button:hover {
+            transform: scale(1.1);
+        }
+
+        .like-button.liked {
+            color: #ff3e3e;
+        }
+
+        .now-playing {
+            border-left: 3px solid #5a44ff;
+            background-color: rgba(90, 68, 255, 0.2) !important;
+        }
+
+        .now-playing .song-title {
+            color: #5a44ff;
+        }
+
+        #player-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 15, 40, 0.95);
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(90, 68, 255, 0.3);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #player-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 5px;
+        }
+
+        #player-controls button:hover {
+            color: #5a44ff;
+            transform: scale(1.1);
+        }
+
+        #scrub-bar {
+            height: 6px;
+            background: #444;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 10px auto;
+            position: relative;
+        }
+
+        #scrub-bar-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #5a44ff, #7a64ff);
+            border-radius: 3px;
+            width: 0%;
+        }
+
+        #time-display {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 12px;
+            color: #888;
+        }
+
+        #loop.loop-active {
+            color: #5a44ff;
+        }
+
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        #youtube-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #placeholder {
+            font-size: 60px;
+            text-align: center;
+            margin-top: 20%;
+            color: rgba(90, 68, 255, 0.3);
+        }
+
+        #placeholder-text p {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+        }
+
+        .loading, .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(30, 30, 50, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(90, 68, 255, 0.5);
+            border-radius: 10px;
+        }
+
+        /* Make sure iframe doesn't capture clicks */
+        iframe {
+            pointer-events: none !important;
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            #music-container {
+                margin-top: 80px;
+                padding: 0 15px;
+            }
+            
+            .search-result-item {
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-bg"></div>
+    <div class="depth-layer"></div>
+    <div class="stars" id="stars"></div>
+    <div class="vignette"></div>
+
+    <nav id="navbar">
+        <a href="/" class="logo" style="text-decoration: none;">
+            <img src="/logo/evadion.jpeg" alt="Evadion Logo"> Evadion
+        </a>
+        <div class="nav-links">
+            <a class="nav-link has-tooltip" href="/engine">
+                PROXY
+                <span class="tooltip">Search engine</span>
+            </a>
+            <a href="/movies" class="nav-link has-tooltip">
+                TV
+                <span class="tooltip">Movies + Shows</span>
+            </a>
+            <a class="nav-link has-tooltip" href="/ai">
+                AI
+                <span class="tooltip">AI</span>
+            </a>
+            <a class="nav-link has-tooltip" href="/extras">
+                Extras
+                <span class="tooltip">Extras</span>
+            </a>
+        </div>
+        <div class="nav-buttons">
+            <a href="https://github.com/Evadion/evadion.github.io" class="social-link has-tooltip" target="_blank">
+                <i class="bi bi-github"></i>
+                <span class="tooltip">GitHub</span>
+            </a>
+            <a href="https://discord.com/invite/BJwdeHAsuR" class="social-link has-tooltip" target="_blank">
+                <i class="bi bi-discord"></i>
+                <span class="tooltip">Discord</span>
+            </a>
+            <a href="mailto:contact.mkykg@gmail.com" class="cta-button" id="getStartedBtn">
+                Email
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div id="music-container">
+        <header id="music-header">
+            <input type="text" id="search-bar" placeholder="Search for music...">
+            <button id="search-button">
+                <i class="bi bi-search"></i>
+            </button>
+            <button id="toggle-video-button">
+                <i class="bi bi-tv"></i>
+            </button>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="all">All Songs</button>
+            <button class="tab-button" data-tab="liked">Liked Songs</button>
+        </div>
+
+        <main>
+            <div id="placeholder">
+                <i class="bi bi-file-earmark-music"></i>
+            </div>
+            <div id="placeholder-text">
+                <p>Search to get started</p>
+            </div>
+            <section id="trending"></section>
+            <section id="search-results" class="hidden"></section>
+            <section id="liked-songs" class="hidden"></section>
+        </main>
+    </div>
+
+    <footer id="player-controls">
+        <div class="controls-row">
+            <button id="prev"><i class="bi bi-skip-start"></i></button>
+            <button id="play"><i class="bi bi-play-fill"></i></button>
+            <button id="next"><i class="bi bi-skip-end"></i></button>
+            <button id="loop"><i class="bi bi-arrow-repeat"></i></button>
+        </div>
+        <div id="scrub-bar" onclick="seekTo(event)">
+            <div id="scrub-bar-progress"></div>
+        </div>
+        <div id="time-display">
+            <span id="current-time">0:00</span>
+            <span id="duration-time">0:00</span>
+        </div>
+    </footer>
+
+    <div id="video-container" class="hidden">
+        <div id="youtube-player"></div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // YouTube API key - replace with your own
+        const API_KEY = "3163310d4b0c43f984cf2bee85cdd1ea";
+        
+        let player;
+        let isPlayerReady = false;
+        let isPlaying = false;
+        let isLooping = false;
+        let currentSearchResults = [];
+        let currentVideoIndex = -1;
+        let likedSongs = [];
+        let isVideoHidden = false;
+        let scrubInterval;
+
+        // Load liked songs from localStorage on page load
+        function loadLikedSongs() {
+            const saved = localStorage.getItem('evadionLikedSongs');
+            if (saved) {
+                try {
+                    likedSongs = JSON.parse(saved);
+                    updateLikedSongsTab();
+                } catch (e) {
+                    console.error('Error loading liked songs:', e);
+                    likedSongs = [];
+                }
+            }
+        }
+
+        // Save liked songs to localStorage
+        function saveLikedSongs() {
+            localStorage.setItem('evadionLikedSongs', JSON.stringify(likedSongs));
+        }
+
+        // Initialize everything
+        function init() {
+            loadLikedSongs();
+            setupEventListeners();
+            createStars();
+            
+            // Set placeholder text
+            document.getElementById('search-bar').placeholder = "Search for music...";
+            
+            // Initialize navbar scroll effect
+            window.addEventListener('scroll', navbarScroll);
+            
+            // Initialize parallax effect
+            document.addEventListener('mousemove', parallaxEffect);
+            
+            // Initialize device orientation for mobile
+            window.addEventListener('deviceorientation', handleDeviceOrientation);
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Search input
+            document.getElementById('search-bar').addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    searchMusic(e.target.value);
+                }
+            });
+
+            // Search button
+            document.getElementById('search-button').addEventListener('click', () => {
+                searchMusic(document.getElementById('search-bar').value);
+            });
+
+            // Toggle video button
+            document.getElementById('toggle-video-button').addEventListener('click', toggleVideoVisibility);
+
+            // Tab switching
+            document.querySelectorAll('.tab-button').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+
+                    // Set active tab
+                    document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Hide all content
+                    document.getElementById('search-results').classList.add('hidden');
+                    document.getElementById('liked-songs').classList.add('hidden');
+
+                    // Make sure placeholder is hidden on any tab switch
+                    document.getElementById('placeholder').classList.add('hidden');
+                    document.getElementById('placeholder-text').classList.add('hidden');
+
+                    if (tabName === 'all') {
+                        // Only show placeholder if no search results
+                        if (!currentSearchResults || currentSearchResults.length === 0) {
+                            document.getElementById('placeholder').classList.remove('hidden');
+                            document.getElementById('placeholder-text').classList.remove('hidden');
+                        } else {
+                            document.getElementById('search-results').classList.remove('hidden');
+                        }
+                    } else if (tabName === 'liked') {
+                        updateLikedSongsList();
+                        document.getElementById('liked-songs').classList.remove('hidden');
+                    }
+                });
+            });
+
+            // Player controls
+            document.getElementById('prev').addEventListener('click', playPrevious);
+            document.getElementById('play').addEventListener('click', togglePlayPause);
+            document.getElementById('next').addEventListener('click', playNext);
+            document.getElementById('loop').addEventListener('click', toggleLoop);
+        }
+
+        // Filter function to check if a YouTube video is music
+        function isMusicVideo(video) {
+            // Always include all music videos (don't filter)
+            return true;
+        }
+
+        function searchMusic(query) {
+            if (!query || query.trim() === '') return;
+
+            // Show loading state
+            const searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = '<div class="loading">Searching for music...</div>';
+            searchResults.classList.remove('hidden');
+
+            // Show search results tab
+            document.querySelectorAll('.tab-button').forEach(tab => tab.classList.remove('active'));
+            document.querySelector('[data-tab="all"]').classList.add('active');
+            document.getElementById('liked-songs').classList.add('hidden');
+
+            // Set currentVideoIndex to -1 when starting a new search
+            currentVideoIndex = -1;
+
+            // Add "music" to queries to help filter results
+            const searchQuery = `${query} music`;
+
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(searchQuery)}&key=${API_KEY}&videoCategoryId=10&maxResults=50`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const results = document.getElementById('search-results');
+                    const placeholder = document.getElementById('placeholder');
+                    const placeholderText = document.getElementById('placeholder-text');
+
+                    placeholder.classList.add('hidden');
+                    placeholderText.classList.add('hidden');
+
+                    // Store all results
+                    currentSearchResults = data.items;
+                    results.innerHTML = '';
+
+                    if (currentSearchResults.length === 0) {
+                        results.innerHTML = '<div class="no-results">No music found. Try another search.</div>';
+                        return;
+                    }
+
+                    currentSearchResults.forEach((video, index) => {
+                        const div = document.createElement('div');
+                        div.classList.add('search-result-item');
+
+                        // Check if song is liked
+                        const isLiked = likedSongs.some(song => song.id === video.id.videoId);
+                        const likeIcon = isLiked ? 'bi-heart-fill' : 'bi-heart';
+                        const likeClass = isLiked ? 'liked' : '';
+
+                        div.innerHTML = `
+                            <div class="song-info">
+                                <div class="song-title">${video.snippet.title}</div>
+                                <div class="song-artist">${video.snippet.channelTitle}</div>
+                            </div>
+                            <button class="like-button ${likeClass}" data-id="${video.id.videoId}" data-index="${index}">
+                                <i class="bi ${likeIcon}"></i>
+                            </button>
+                        `;
+
+                        // Make entire item clickable to play
+                        div.addEventListener('click', function(e) {
+                            // Don't trigger if clicking the like button
+                            if (e.target.closest('.like-button')) return;
+                            playVideo(video.id.videoId, index);
+                        });
+
+                        // Add like button functionality
+                        div.querySelector('.like-button').addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            toggleLike(this, video);
+                        });
+
+                        results.appendChild(div);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Search error:', error);
+                    document.getElementById('search-results').innerHTML =
+                        '<div class="no-results">Error searching. Please try again.</div>';
+                });
+        }
+
+        // Toggle like status of a song
+        function toggleLike(button, video) {
+            if (!button) return;
+
+            const videoId = button.getAttribute('data-id');
+            if (!videoId) return;
+
+            // Check if the song is already liked
+            const likedIndex = likedSongs.findIndex(song => song.id === videoId);
+
+            // Get video details either from passed video object or from DOM
+            let title, artist;
+
+            if (video && video.snippet) {
+                title = video.snippet.title;
+                artist = video.snippet.channelTitle;
+            } else {
+                const songItem = button.closest('.search-result-item');
+                if (songItem) {
+                    title = songItem.querySelector('.song-title').textContent;
+                    artist = songItem.querySelector('.song-artist').textContent;
+                } else {
+                    console.error("Could not find song details");
+                    return;
+                }
+            }
+
+            if (likedIndex === -1) {
+                // Add to liked songs
+                likedSongs.push({
+                    id: videoId,
+                    title: title,
+                    artist: artist
+                });
+                button.classList.add('liked');
+                button.innerHTML = '<i class="bi bi-heart-fill"></i>';
+            } else {
+                // Remove from liked songs
+                likedSongs.splice(likedIndex, 1);
+                button.classList.remove('liked');
+                button.innerHTML = '<i class="bi bi-heart"></i>';
+
+                // If we're on the liked songs tab, need to update the UI
+                if (document.querySelector('[data-tab="liked"].active')) {
+                    updateLikedSongsList();
+                }
+            }
+
+            // Update liked songs count and save to localStorage
+            updateLikedSongsTab();
+            saveLikedSongs();
+        }
+
+        // Update the Liked Songs tab count
+        function updateLikedSongsTab() {
+            const likedTab = document.querySelector('[data-tab="liked"]');
+            likedTab.textContent = likedSongs.length > 0 ? `Liked Songs (${likedSongs.length})` : 'Liked Songs';
+        }
+
+        // Display liked songs list
+        function updateLikedSongsList() {
+            const likedSongsSection = document.getElementById('liked-songs');
+            likedSongsSection.innerHTML = '';
+
+            // Always hide music note on liked songs screen
+            document.getElementById('placeholder').classList.add('hidden');
+            document.getElementById('placeholder-text').classList.add('hidden');
+
+            if (likedSongs.length === 0) {
+                likedSongsSection.innerHTML = '<div class="no-results">No liked songs yet. Heart some songs to add them here.</div>';
+                return;
+            }
+
+            likedSongs.forEach((song, idx) => {
+                const div = document.createElement('div');
+                div.classList.add('search-result-item');
+
+                // Add 'now-playing' class if this is the current song
+                if (currentVideoIndex === idx && document.querySelector('[data-tab="liked"].active')) {
+                    div.classList.add('now-playing');
+                }
+
+                div.innerHTML = `
+                    <div class="song-info">
+                        <div class="song-title">${song.title}</div>
+                        <div class="song-artist">${song.artist}</div>
+                    </div>
+                    <button class="like-button liked" data-id="${song.id}">
+                        <i class="bi bi-heart-fill"></i>
+                    </button>
+                `;
+
+                // Add click event to play the song
+                div.addEventListener('click', function(e) {
+                    // Don't trigger if clicking the like button
+                    if (e.target.closest('.like-button')) return;
+                    playVideo(song.id, idx);
+                });
+
+                // Add unlike button functionality
+                div.querySelector('.like-button').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    toggleLike(this);
+                });
+
+                likedSongsSection.appendChild(div);
+            });
+        }
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '100%',
+                width: '100%',
+                videoId: '',
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,  // Hide controls
+                    modestbranding: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    playsinline: 1,
+                    iv_load_policy: 3, // Hide annotations
+                    fs: 0 // Hide fullscreen button
+                },
+                events: {
+                    'onReady': () => {
+                        isPlayerReady = true;
+                        console.log('YouTube player ready');
+                    },
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        function playVideo(videoId, index) {
+            if (!videoId) {
+                console.error("No video ID provided");
+                return;
+            }
+
+            console.log(`Playing video: ${videoId}, index: ${index}`);
+
+            // Show video container if hidden
+            document.getElementById('video-container').classList.remove('hidden');
+
+            // Remove 'now-playing' class from all song items
+            document.querySelectorAll('.search-result-item').forEach(item => {
+                item.classList.remove('now-playing');
+            });
+
+            // Add 'now-playing' class to the currently playing song
+            const currentTab = document.querySelector('.tab-button.active').getAttribute('data-tab');
+            let songItems;
+
+            if (currentTab === 'all') {
+                songItems = document.querySelectorAll('#search-results .search-result-item');
+                if (songItems.length > index) {
+                    songItems[index].classList.add('now-playing');
+                }
+            } else if (currentTab === 'liked') {
+                // For liked songs, we need to find it by video ID
+              </script>
+</body>
+</html>
