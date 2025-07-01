@@ -1,5 +1,5 @@
 self.__uv$config = {
-    prefix: '/active/go/',
+    prefix: '/active/word/',
     bare:'https://bare.cbgames.org/',
     encodeUrl: Ultraviolet.codec.xor.encode,
     decodeUrl: Ultraviolet.codec.xor.decode,
